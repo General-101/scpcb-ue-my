@@ -191,14 +191,18 @@ Function ResizeImageEx%(SrcImage%, ScaleX#, ScaleY#, Frames% = 1)
 End Function
 
 Function RescaleTexture%(SrcTexture%, ScaleX#, ScaleY#, Flags% = 1)
-	; ~ Get the width and height of the source texture
-	Local SrcWidth# = TextureWidth(SrcTexture)
-	Local SrcHeight# = TextureHeight(SrcTexture)
-	
-	; ~ Create the Scratch image
-	Local ScratchImage% = CreateImage(SrcWidth, SrcHeight)
-	; ~ Create the destination texture
-	Local DestTexture% = CreateTexture(SrcWidth * ScaleX, SrcHeight * ScaleY, Flags)
+    ; ~ Get the width and height of the source texture
+    Local SrcWidth# = TextureWidth(SrcTexture)
+    Local SrcHeight# = TextureHeight(SrcTexture)
+    
+    ; ~ calc destination size (min 1)
+    Local ReqWidth%  = Max(1, Int(SrcWidth * ScaleX))
+    Local ReqHeight% = Max(1, Int(SrcHeight * ScaleY))
+    
+    ; ~ Create the Scratch image
+    Local ScratchImage% = CreateImage(SrcWidth, SrcHeight)
+    ; ~ Create the destination texture
+    Local DestTexture% = CreateTexture(ReqWidth, ReqHeight, Flags)
 	
 	; ~ Get the width and height of the destination texture
 	Local DestWidth% = TextureWidth(DestTexture)
