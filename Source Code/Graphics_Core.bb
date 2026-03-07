@@ -191,6 +191,8 @@ Function ResizeImageEx%(SrcImage%, ScaleX#, ScaleY#, Frames% = 1)
 End Function
 
 Function RescaleTexture%(SrcTexture%, ScaleX#, ScaleY#, Flags% = 1)
+	If ScaleX = 0 Or ScaleY = 0.0 Then Return SrcTexture
+
 	; ~ Get the width and height of the source texture
 	Local SrcWidth# = TextureWidth(SrcTexture)
 	Local SrcHeight# = TextureHeight(SrcTexture)
